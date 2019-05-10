@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<Recruitment.Models.CANDIDATE>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ListCall";
+    List<SelectListItem> searchFieldItems =
+        new List<SelectListItem>() {
+                new SelectListItem { Text = "Name", Value = "name" },
+                new SelectListItem { Text = "Applied Position", Value = "appliedPosition" },
+                new SelectListItem { Text = "Source", Value = "source" },
+                new SelectListItem { Text = "Phone Number", Value = "phoneNumber" },
+                new SelectListItem { Text = "Email", Value = "email" },
+                new SelectListItem { Text = "Pra-Selection PIC", Value = "praSelectionPIC" },
+                new SelectListItem { Text = "Pra-Selection Notes", Value = "praSelectionNotes" },
+        };
+}
+
+<h2>ListCall</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm()) {
+<p>
+    Search: @Html.TextBox("searchString")
+    Filter By: @Html.DropDownList("searchField", searchFieldItems, new { htmlAttributes = new { @class = "form-control", @id = "ddSearchField" } })
+    <input type="submit" value="Search" />
+</p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "SortByName")
+        </th>
+        <th>
+            Applied Position
+        </th>
+        <th>
+            Source
+        </th>
+        <th>
+            Phone Number
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Pra Selection PIC
+        </th>
+        <th>
+            State
+        </th>
+        <th>
+            Pra Selection Notes
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAMA_LENGKAP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JUDUL_POSISI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOURCE_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOHP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMAIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USER_CREATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STATE_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CATATAN)
+        </td>
+        <td>
+            <button type="button" class="button btn-primary glyphicon-triangle-right"></button>
+            @Html.ActionLink("==>>", "Details", new { id = item.CANDIDATE_ID })
+        </td>
+    </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

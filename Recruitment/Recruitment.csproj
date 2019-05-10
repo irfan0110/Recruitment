@@ -57,6 +57,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -139,6 +145,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CallController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MD5Encryption.cs" />
@@ -152,6 +159,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="Models\CANDIDATE.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidateDTO.cs" />
+    <Compile Include="Models\CandidateDummy.cs" />
+    <Compile Include="Models\EDUCATION.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EducationDTO.cs" />
+    <Compile Include="Models\EXPERIENCE.cs">
+      <DependentUpon>RecruitmentDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExperienceDTO.cs" />
     <Compile Include="Models\FormViewModel.cs" />
     <Compile Include="Models\MENU.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
@@ -227,6 +247,7 @@
     <Content Include="Content\build\images\logo ACE.png" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\vendors\animate.css\animate.css" />
     <Content Include="Content\vendors\animate.css\animate.min.css" />
     <Content Include="Content\vendors\animate.css\gulpfile.js" />
@@ -4678,6 +4699,7 @@
     <Content Include="Views\Source\Source.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Call\ListCall.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
