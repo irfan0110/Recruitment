@@ -162,8 +162,7 @@
     <Compile Include="Models\CANDIDATE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CandidateDTO.cs" />
-    <Compile Include="Models\CandidateDummy.cs" />
+    <Compile Include="Models\CandidateCallDTO.cs" />
     <Compile Include="Models\EDUCATION.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -173,6 +172,7 @@
     </Compile>
     <Compile Include="Models\ExperienceDTO.cs" />
     <Compile Include="Models\FormViewModel.cs" />
+    <Compile Include="Models\ListCallViewModel.cs" />
     <Compile Include="Models\MENU.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -4700,6 +4700,7 @@
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Call\ListCall.cshtml" />
+    <Content Include="Views\Call\ListCalled.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
