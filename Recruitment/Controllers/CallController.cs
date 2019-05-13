@@ -21,13 +21,20 @@ namespace Recruitment.Controllers
             
             //SEARCHING
             if (!String.IsNullOrEmpty(searchString)) {
-                candidates = candidates.Where(c => c.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
+                candidates = candidates.Where(c => c.Name.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Position.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Source.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Phone.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Email.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.PreSelectPIC.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Notes.ToUpper().Contains(searchString.ToUpper())
+
+                ).ToList();
                 page = 1;
             }
 
             if (!String.IsNullOrEmpty(filterPosition)) {
                 candidates = candidates.Where(c => c.Position.ToUpper().Equals(filterPosition.ToUpper())).ToList();
-                //TODO SEARCH ON ALL FIELDS
                 page = 1;
             }
 
@@ -48,13 +55,20 @@ namespace Recruitment.Controllers
 
             //SEARCHING
             if (!String.IsNullOrEmpty(searchString)) {
-                candidates = candidates.Where(c => c.Name.ToUpper().Contains(searchString.ToUpper())).ToList();
+                candidates = candidates.Where(c => c.Name.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Position.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Source.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Phone.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Email.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.PreSelectPIC.ToUpper().Contains(searchString.ToUpper()) ||
+                                                   c.Notes.ToUpper().Contains(searchString.ToUpper())
+
+                ).ToList();
                 page = 1;
             }
 
             if (!String.IsNullOrEmpty(filterPosition)) {
                 candidates = candidates.Where(c => c.Position.ToUpper().Equals(filterPosition.ToUpper())).ToList();
-                //TODO SEARCH ON ALL FIELDS
                 page = 1;
             }
 
@@ -78,7 +92,7 @@ namespace Recruitment.Controllers
                                 from u in table2.DefaultIfEmpty()
                                     join st in db.STATEs on c.STATE_ID equals st.STATE_ID into table3
                                     from st in table3.DefaultIfEmpty()
-                                    where c.STATE_ID == "ST001"
+                                    where c.STATE_ID == "ST002"
                                     select new CandidateCallDTO { 
                                         CandidateId = c.CANDIDATE_ID,
                                         Name = c.NAMA_LENGKAP,
@@ -88,9 +102,18 @@ namespace Recruitment.Controllers
                                         Email = c.EMAIL,
                                         PreSelectPIC = u.FULLNAME,
                                         State = st.STATE_NAME,
-                                        Notes = c.CATATAN
+                                        Notes = c.CATATAN,
+                                        ExpectedSalary = c.EXPECTED_SALARY,
+                                        AvailableJoin = (DateTime)c.AVAIABLE_JOIN
                                     }).ToList();
 
+                //Insert each row of EPERENCE into List<EXPERIENCE>
+                //Needed for popup function
+                foreach (CandidateCallDTO candidate in candidates) {
+                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();
+                }
+
+                //Populate the SelectListItem used for filter dropdown
                 List<SelectListItem> filterPositions = db.POSITIONs.Select(p => new SelectListItem {
                     Text = p.POSITION_NAME,
                     Value = p.POSITION_NAME                
@@ -110,7 +133,7 @@ namespace Recruitment.Controllers
                               from u in table2.DefaultIfEmpty()
                               join st in db.STATEs on c.STATE_ID equals st.STATE_ID into table3
                               from st in table3.DefaultIfEmpty()
-                              where c.STATE_ID == "ST002"
+                              where c.STATE_ID == "ST003"
                               select new CandidateCallDTO {
                                   CandidateId = c.CANDIDATE_ID,
                                   Name = c.NAMA_LENGKAP,
@@ -120,9 +143,18 @@ namespace Recruitment.Controllers
                                   Email = c.EMAIL,
                                   PreSelectPIC = u.FULLNAME,
                                   State = st.STATE_NAME,
-                                  Notes = c.CATATAN
+                                  Notes = c.CATATAN,
+                                  ExpectedSalary = c.EXPECTED_SALARY,
+                                  AvailableJoin = (DateTime)c.AVAIABLE_JOIN
                               }).ToList();
 
+                //Insert each row of EPERENCE into List<EXPERIENCE>
+                //Needed for popup function
+                foreach(CandidateCallDTO candidate in candidates) {
+                    candidate.Experiences = db.EXPERIENCEs.Where(e => e.CANDIDATE_ID == candidate.CandidateId).ToList();                    
+                }
+
+                //Populate the SelectListItem used for filter dropdown
                 List<SelectListItem> filterPositions = db.POSITIONs.Select(p => new SelectListItem {
                     Text = p.POSITION_NAME,
                     Value = p.POSITION_NAME
