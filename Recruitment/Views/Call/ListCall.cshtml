@@ -20,11 +20,12 @@
             </div>
             <div class="col-sm-3">
                 @using (Html.BeginForm()) {
-                    <p>
-                        Search: @Html.TextBox("searchString", "", new { @class = "form-control input-sm" })
-                        Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
-                        <input type="submit" value="Search" class="btn btn-primary input-sm" />
-                    </p>
+                <p>
+                    Search: @Html.TextBox("searchString", ViewBag.currentSearch as string, new { @class = "form-control input-sm" })
+                    Filter By: @Html.DropDownList("filterPosition", (List<SelectListItem>)TempData.Peek("filterPositions"), new { @class = "form-control input-sm" })
+
+                    <input type="submit" value="Search" class="btn btn-primary input-sm" />
+                </p>
                 }
             </div>
         </div>
@@ -88,7 +89,8 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary glyphicon glyphicon-zoom-in input-sm" onclick="showDetail('@item.CandidateId')"></button>
-                        <button type="button" class="btn btn-primary glyphicon glyphicon-triangle-right input-sm"></button>
+                        @*<button type="button" class="btn btn-primary glyphicon glyphicon-triangle-right input-sm"></button>*@
+                        @Html.ActionLink("Next", "NextProses", "Call", new { id = item.CandidateId }, new { @class = "btn btn-primary input-sm" })
                     </td>
                 </tr>
                 <tr class="rowDetail" id="rowDetail_@item.CandidateId" style="display:none">
@@ -129,7 +131,7 @@
         <br />
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentSearch = ViewBag.currentSearch, currentFilter = ViewBag.currentFilter }))
 
     </div>
 
@@ -149,5 +151,6 @@
                 rowDetail.style.display = "none";
             }
         }
+
     </script>
 }

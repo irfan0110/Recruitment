@@ -159,10 +159,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="Models\CallModelProses.cs" />
     <Compile Include="Models\CANDIDATE.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CandidateCallDTO.cs" />
+    <Compile Include="Models\DropListSource.cs" />
     <Compile Include="Models\EDUCATION.cs">
       <DependentUpon>RecruitmentDB.tt</DependentUpon>
     </Compile>
@@ -4701,6 +4703,8 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Call\ListCall.cshtml" />
     <Content Include="Views\Call\ListCalled.cshtml" />
+    <Content Include="Views\Call\addExperienced.cshtml" />
+    <Content Include="Views\Call\NextProses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

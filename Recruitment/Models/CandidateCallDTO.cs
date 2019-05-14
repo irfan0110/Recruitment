@@ -40,9 +40,14 @@ namespace Recruitment.Models
         List<String> GetAllBenefits() {
             List<string> result = new List<string>();
             foreach (EXPERIENCE exp in experiences) {
-                string[] benefits = exp.BENEFIT.Split(',');
-                foreach (string benefit in benefits) {
-                    result.Add(benefit);
+                try {
+                    string[] benefits = exp.BENEFIT.Split(',');
+                    foreach (string benefit in benefits) {
+                        result.Add(benefit);
+                    }
+                }
+                catch (NullReferenceException) {
+                    result.Add("");
                 }
             }
 
@@ -53,9 +58,14 @@ namespace Recruitment.Models
         String GetAllBenefits1Line() {
             List<string> result = new List<string>();
             foreach (EXPERIENCE exp in experiences) {
-                string[] benefits = exp.BENEFIT.Split(',');
-                foreach (string benefit in benefits) {
-                    result.Add(benefit);
+                try {
+                    string[] benefits = exp.BENEFIT.Split(',');
+                    foreach (string benefit in benefits) {
+                        result.Add(benefit);
+                    }
+                }
+                catch(NullReferenceException) {
+                    result.Add("");
                 }
             }
 
@@ -67,21 +77,32 @@ namespace Recruitment.Models
         List<String> GetAllSkills() {
             List<string> result = new List<string>();
             foreach (EXPERIENCE exp in experiences) {
-                string[] skills = exp.SKILL.Split(',');
-                foreach (string skill in skills) {
-                    result.Add(skill);
+                try {
+                    string[] skills = exp.SKILL.Split(',');
+                    foreach (string skill in skills) {
+                        result.Add(skill);
+                    }
+                }
+                catch (NullReferenceException) {
+                    result.Add("");
                 }
             }
 
             return result;
         }
+
         public String AllSkills1Line { get => GetAllSkills1Line(); }
         String GetAllSkills1Line() {
             List<string> result = new List<string>();
             foreach (EXPERIENCE exp in experiences) {
-                string[] skills = exp.SKILL.Split(',');
-                foreach (string skill in skills) {
-                    result.Add(skill);
+                try {
+                    string[] skills = exp.SKILL.Split(',');
+                    foreach (string skill in skills) {
+                        result.Add(skill);
+                    }
+                }
+                catch (NullReferenceException) {
+                    result.Add("");
                 }
             }
 

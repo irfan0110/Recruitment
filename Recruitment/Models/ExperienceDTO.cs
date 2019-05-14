@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,63 +8,62 @@ namespace Recruitment.Models
 {
     public class ExperienceDTO
     {
-        public int ExperienceId
-        {
+        public int ExperienceId {
             get; set;
         }
 
-        public string ExperienceName
-        {
+        [Required(ErrorMessage = "Experience Name Harus Diisi")]
+        public string ExperienceName {
             get; set;
         }
 
-        public string Industri
-        {
+        [Required(ErrorMessage = "Industri Harus Diisi")]
+        public string Industri {
             get; set;
         }
 
-        public string Posisi
-        {
+
+        [Required(ErrorMessage = "Posisi Harus Diisi")]
+        public string Posisi {
             get; set;
         }
 
-        public DateTime StartDate
-        {
+        [Required(ErrorMessage = "Start Date Harus Diisi")]
+        public DateTime StartDate {
             get; set;
         }
 
-        public DateTime EndDate
-        {
+        [Required(ErrorMessage = "End Date Harus Diisi")]
+        public DateTime EndDate {
             get; set;
         }
 
-        public string JobDesc
-        {
+        [Required(ErrorMessage = "Job Description Harus Diisi")]
+        public string JobDesc {
             get; set;
         }
 
-        public string Skill
-        {
+        [Required(ErrorMessage = "Skill Harus Diisi")]
+        public string Skill {
             get; set;
         }
 
-        public int Salary
-        {
+        [Required(ErrorMessage = "Salary Harus Diisi")]
+        public int Salary {
             get; set;
         }
 
-        public string Project
-        {
+        [Required(ErrorMessage = "Project Harus Diisi")]
+        public string Project {
             get; set;
         }
 
-        public string Benefit
-        {
+        [Required(ErrorMessage = "Benefit Harus Diisi")]
+        public string Benefit {
             get; set;
         }
 
-        public string CandidateId
-        {
+        public string CandidateId {
             get; set;
         }
     }
