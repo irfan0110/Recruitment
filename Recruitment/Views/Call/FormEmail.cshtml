@@ -1,0 +1,28 @@
+﻿@model Recruitment.Models.FormEmailViewModel
+
+@{
+    ViewBag.Title = "Send Email";
+}
+
+
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
+        @using (Html.BeginForm("SendEmail", "Call", FormMethod.Post)) {
+            @Html.AntiForgeryToken()
+            <div class="row" style="margin-bottom:10px">
+                <div class="col-sm-2">To</div> <div class="col-sm-5"> @Html.TextBoxFor(m => Model.Candidate.EMAIL, new { @class = "form-control" })</div>
+            </div>
+            <div class="row" style="margin-bottom:10px">
+                <div class="col-sm-2">Subject</div><div class="col-sm-5"> @Html.TextBoxFor(m => Model.EmailSubject, new { @class = "form-control" })</div>
+            </div>
+            <div class="row" style="margin-bottom:10px">
+                @Html.TextAreaFor(m => Model.EmailContent, new { @class = "form-control" })
+            </div>
+            <div class="row alignright" style="margin-bottom:10px">
+                <input type="submit" value="Send" class="btn btn-primary input-lg" />
+            </div>
+        }
+    </div>
+    <div class="col-sm-2"></div>    
+</div>

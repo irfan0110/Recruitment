@@ -13,7 +13,8 @@ namespace Recruitment.Controllers
     public class CallController : Controller
     {
         List<CandidateCallDTO> candidates;
-        //List<CandidateCallDTO> calledCandidates;
+
+        #region Candidate List Pages
         // GET: Call
         [Route("")]
         public ActionResult Index(string filterPosition, string currentFilter, string searchString, string currentSearch, int? page)
@@ -58,15 +59,31 @@ namespace Recruitment.Controllers
             if (page == null) {
                 page = 1;
             }
-            int pageSize = 2; //The amount of row displayed each page
+            int pageSize = 5; //The amount of row displayed each page
             int pageNumber = (page ?? 1);
 
             return View("ListCall", candidates.ToPagedList(pageNumber,pageSize));
         }
 
         [Route("called")]
-        public ActionResult IndexCalled(string filterPosition, string searchString, int? page) {
+        public ActionResult IndexCalled(string filterPosition, string currentFilter, string searchString, string currentSearch, int? page) {
             InitializeCalledCandidates();
+
+            if (searchString != null) {
+                page = 1;
+            }
+            else {
+                searchString = currentSearch;
+            }
+            ViewBag.currentSearch = searchString;
+
+            if (filterPosition != null) {
+                page = 1;
+            }
+            else {
+                filterPosition = currentFilter;
+            }
+            ViewBag.currentFilter = filterPosition;
 
             //SEARCHING
             if (!String.IsNullOrEmpty(searchString)) {
@@ -79,12 +96,10 @@ namespace Recruitment.Controllers
                                                    c.Notes.ToUpper().Contains(searchString.ToUpper())
 
                 ).ToList();
-                page = 1;
             }
 
             if (!String.IsNullOrEmpty(filterPosition)) {
                 candidates = candidates.Where(c => c.Position.ToUpper().Equals(filterPosition.ToUpper())).ToList();
-                page = 1;
             }
 
             //PAGING
@@ -98,6 +113,9 @@ namespace Recruitment.Controllers
             return View("ListCalled", candidates.ToPagedList(pageNumber, pageSize));
         }
 
+        #endregion
+
+        #region Candidate List Support
         void InitializeCandidates() {
             using(RecruitmentEntities db = new RecruitmentEntities()) {
                candidates = (from c in db.CANDIDATEs
@@ -179,8 +197,21 @@ namespace Recruitment.Controllers
                 TempData["filterPositions"] = filterPositions;
             }
         }
+        #endregion
 
-        //Next Proses hanif
+        #region Email
+        [ActionName("FormEmail")]
+        public ActionResult FormEmail(string id) {
+            using (RecruitmentEntities RE = new RecruitmentEntities()) {
+                FormEmailViewModel formEmail = new FormEmailViewModel();
+                formEmail.Candidate = RE.CANDIDATEs.Find(id);
+                
+                return View("FormEmail", formEmail);
+            }
+        }
+        #endregion
+
+        #region Hanif
         public ActionResult NextProses(string id) {
             using (RecruitmentEntities RE = new RecruitmentEntities()) {
 
@@ -299,12 +330,12 @@ namespace Recruitment.Controllers
                 };
                 RE.Entry(experience).State = EntityState.Modified;
                 RE.SaveChanges();
-                return Redirect("~/call/callList");
+                return Redirect("~/call");
             }
         }
+        #endregion
 
-        //Kerjaan Ridwan
-
+        #region Ridwan
         public ActionResult addExperienced() {
 
             return View();
@@ -332,6 +363,7 @@ namespace Recruitment.Controllers
                 return Redirect("/Call/NextProses/" + id);
             }
         }
+        #endregion
 
         #region UNUSED
 
