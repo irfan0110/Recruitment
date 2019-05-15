@@ -3,7 +3,17 @@
 @{
     ViewBag.Title = "Send Email";
 }
-
+@section styles{
+    <link href="~/Content/summernote/summernote.css" rel="stylesheet">
+}
+@section scripts{
+    <script src="~/Content/summernote/summernote.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote();
+        });
+    </script>
+}
 
 <div class="row">
     <div class="col-sm-1"></div>
@@ -17,12 +27,14 @@
                 <div class="col-sm-2">Subject</div><div class="col-sm-5"> @Html.TextBoxFor(m => Model.EmailSubject, new { @class = "form-control" })</div>
             </div>
             <div class="row" style="margin-bottom:10px">
-                @Html.TextAreaFor(m => Model.EmailContent, new { @class = "form-control" })
+                @*@Html.TextAreaFor(m => Model.EmailContent, new { id = "form-control" })*@
+                <textarea name="EmailContent" id="summernote">Hello summernote</textarea>
+                @*<div id="summernote">Hello Summernote</div>*@
             </div>
             <div class="row alignright" style="margin-bottom:10px">
                 <input type="submit" value="Send" class="btn btn-primary input-lg" />
             </div>
         }
     </div>
-    <div class="col-sm-2"></div>    
+    <div class="col-sm-2"></div>
 </div>

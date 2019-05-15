@@ -85,5 +85,28 @@ namespace Recruitment.Models
 
             return result;
         }
+
+        //Populate dropdownlist based on stateNext
+        public List<SelectListItem> DropListState(CallModelProses candidate) {
+            List<SelectListItem> result = new List<SelectListItem>();
+            using (RecruitmentEntities RE = new RecruitmentEntities()) {
+                string[] stateNext = RE.STATEs.Find(candidate.StateId).STATE_NEXT.Split(',');
+                
+                foreach(string s in stateNext) {
+                    string stateName = RE.STATEs.Find(s).STATE_NAME;
+                    result.Add(new SelectListItem { Text = stateName, Value = s });
+                }
+            }
+
+            return result;
+        }
+
+        public List<string> ListExperience(string id) {
+            RecruitmentEntities db = new RecruitmentEntities();
+            List<string> exps = db.EXPERIENCEs.Where(m => m.CANDIDATE_ID == id)
+                                              .Select(x => x.EXPERIENCE_NAME + " " + x.INDUSTRI).ToList();
+
+            return exps;
+        }
     }
 }
