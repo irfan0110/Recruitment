@@ -205,9 +205,16 @@ namespace Recruitment.Controllers
             using (RecruitmentEntities RE = new RecruitmentEntities()) {
                 FormEmailViewModel formEmail = new FormEmailViewModel();
                 formEmail.Candidate = RE.CANDIDATEs.Find(id);
+                formEmail.InitializeAceTemplate(Session["name"].ToString());
                 
                 return View("FormEmail", formEmail);
             }
+        }
+
+        [ActionName("SendEmail")]
+        [ValidateInput(false)]
+        public ActionResult SendEmail(FormEmailViewModel formEmail) {
+            return Redirect("~/call/called");
         }
         #endregion
 
